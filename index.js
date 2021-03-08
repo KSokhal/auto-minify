@@ -35,20 +35,25 @@ chokidar.watch(mainPath + 'src').on('change', (filepath) => {
             });
 
             let currentDate = new Date();
-            let date = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-            let time  = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+            // let date = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+            let mins = currentDate.getMinutes().length == 2 ? currentDate.getMinutes() : '0' + currentDate.getMinutes()
+            let secs = currentDate.getSeconds().length == 2 ? currentDate.getSeconds() : '0' + currentDate.getSeconds()
+            let time  = currentDate.getHours() + ":" + mins + ":" + secs;
 
-            console.log(`${date} ${time} - Minified '${filepath}'`)
+            console.log(`${time} - Minified '${filepath}'`)
         } else if (ext == '.css') {
             var minifiedCode =  new CleanCSS().minify(initialCode);
 
             fs.writeFileSync(destinationPath, minifiedCode.styles, "utf8");
 
             let currentDate = new Date();
-            let date = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-            let time  = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+            // let date = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+            let mins = currentDate.getMinutes().length == 2 ? currentDate.getMinutes() : '0' + currentDate.getMinutes()
+            let secs = currentDate.getSeconds().length == 2 ? currentDate.getSeconds() : '0' + currentDate.getSeconds()
+            let time  = currentDate.getHours() + ":" + mins + ":" + secs;
+            // let time  = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
 
-            console.log(`${date} ${time} - Minified '${filepath}'`)
+            console.log(`${time} - Minified '${filepath}'`)
         }
         
     } catch (err) {
