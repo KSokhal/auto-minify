@@ -36,9 +36,7 @@ chokidar.watch(mainPath + 'src').on('change', (filepath) => {
 
             let currentDate = new Date();
             // let date = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-            let mins = currentDate.getMinutes().length == 2 ? currentDate.getMinutes() : '0' + currentDate.getMinutes()
-            let secs = currentDate.getSeconds().length == 2 ? currentDate.getSeconds() : '0' + currentDate.getSeconds()
-            let time  = currentDate.getHours() + ":" + mins + ":" + secs;
+            let time  = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
 
             console.log(`${time} - Minified '${filepath}'`)
         } else if (ext == '.css') {
@@ -48,10 +46,7 @@ chokidar.watch(mainPath + 'src').on('change', (filepath) => {
 
             let currentDate = new Date();
             // let date = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-            let mins = currentDate.getMinutes().length == 2 ? currentDate.getMinutes() : '0' + currentDate.getMinutes()
-            let secs = currentDate.getSeconds().length == 2 ? currentDate.getSeconds() : '0' + currentDate.getSeconds()
-            let time  = currentDate.getHours() + ":" + mins + ":" + secs;
-            // let time  = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+            let time  = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
 
             console.log(`${time} - Minified '${filepath}'`)
         }
