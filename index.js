@@ -5,7 +5,7 @@ const fs = require('fs');
 var CleanCSS = require('clean-css');
 
 // const mainPath = "./";
-const mainPath = '../myriad/myriad/myriad_app/static/'
+const mainPath = '../myriad/myriad_app/static/'
 
 // list all files in the directory
 // fs.readdir(mainPath, (err, files) => {
@@ -34,23 +34,19 @@ chokidar.watch(mainPath + 'src').on('change', (filepath) => {
                 fs.writeFileSync(destinationPath, result.code, "utf8");
             });
 
-            let currentDate = new Date();
-            // let date = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-            let time  = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+            var currentDate = new Date();
 
-            console.log(`${time} - Minified '${filepath}'`)
         } else if (ext == '.css') {
             var minifiedCode =  new CleanCSS().minify(initialCode);
 
             fs.writeFileSync(destinationPath, minifiedCode.styles, "utf8");
 
-            let currentDate = new Date();
-            // let date = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-            let time  = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+            var currentDate = new Date();
 
-            console.log(`${time} - Minified '${filepath}'`)
         }
         
+        console.log(`${currentDate.toLocaleTimeString()} - Minified '${filepath.replace(mainPath, "")}'`)
+
     } catch (err) {
         console.log(`Failed to minify ${filepath}: ${err}`);
     };
