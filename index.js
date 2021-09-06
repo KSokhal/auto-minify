@@ -4,8 +4,8 @@ const { minify } = require("terser");
 const fs = require('fs');
 var CleanCSS = require('clean-css');
 
-// const mainPath = "./";
-const mainPath = '../myriad/myriad_app/static/'
+const mainPath = "./";
+// const mainPath = '../myriad/myriad_app/static/'
 
 // list all files in the directory
 // fs.readdir(mainPath, (err, files) => {
@@ -29,7 +29,7 @@ chokidar.watch(mainPath + 'src').on('change', (filepath) => {
 
         if (ext == '.js') {
             var minifiedCode = minify(initialCode)
-            
+
             minifiedCode.then((result) => {
                 fs.writeFileSync(destinationPath, result.code, "utf8");
             });
@@ -37,14 +37,14 @@ chokidar.watch(mainPath + 'src').on('change', (filepath) => {
             var currentDate = new Date();
 
         } else if (ext == '.css') {
-            var minifiedCode =  new CleanCSS().minify(initialCode);
+            var minifiedCode = new CleanCSS({ level: 2 }).minify(initialCode);
 
             fs.writeFileSync(destinationPath, minifiedCode.styles, "utf8");
 
             var currentDate = new Date();
 
         }
-        
+
         console.log(`${currentDate.toLocaleTimeString()} - Minified '${filepath.replace(mainPath, "")}'`)
 
     } catch (err) {
