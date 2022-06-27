@@ -4,14 +4,21 @@ const { minify } = require("terser");
 const fs = require('fs');
 var CleanCSS = require('clean-css');
 
-// const mainPath = "./";
-const mainPath = '../myriad/myriad_app/static/'
+const basePath = process.argv[2];
+if (!basePath) {
+    console.log("Please provide a base directory path")
+    process.exitCode = 1;
+    throw new Error('Base directory path not provided');
+};
 
-chokidar.watch(mainPath + 'src').on('change', (filepath) => {
+chokidar.watch(basePath + '**/static/src/**').on('change', (filepath) => {
+
     try {
+        //  Get file information
         const ext = path.extname(filepath);
         var initialCode = fs.readFileSync(filepath, "utf8");
-        var destinationPath = filepath.replace('src', './').replace(ext, `.min${ext}`)
+
+        var destinationPath = filepath.replace('\src', '').replace(ext, `.min${ext}`)
 
         switch (ext) {
             case '.js':
@@ -31,7 +38,7 @@ chokidar.watch(mainPath + 'src').on('change', (filepath) => {
         }
 
         var currentDate = new Date();
-        console.log(`${currentDate.toLocaleTimeString()} - Minified '${filepath.replace(mainPath, "")}'`)
+        console.log(`${currentDate.toLocaleTimeString()} - Minified '${filepath}'`)
     } catch (err) {
         console.log(`Failed to minify ${filepath}: ${err}`);
     };
